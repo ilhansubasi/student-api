@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class StudentService {
     @Autowired
@@ -24,6 +26,13 @@ public class StudentService {
 
     public Page<Student> getStudents(Pageable pageable) {
         return studentRepository.findAll(pageable);
+    }
+
+    public ArrayList<Student> getAllStudents() {
+        var it = studentRepository.findAll();
+        var students = new ArrayList<Student>();
+        it.forEach(s -> students.add(s));
+        return students;
     }
 
     public void deleteStudent(Integer id) {
