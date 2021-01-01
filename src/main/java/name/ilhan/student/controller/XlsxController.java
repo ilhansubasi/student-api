@@ -1,18 +1,21 @@
 package name.ilhan.student.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import name.ilhan.student.dto.StudentInput;
+import name.ilhan.student.enums.Gender;
 import name.ilhan.student.model.Student;
 import name.ilhan.student.service.StudentService;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -64,5 +67,33 @@ public class XlsxController {
                 .ok()
                 .headers(headers)
                 .body(new InputStreamResource(new ByteArrayInputStream(out.toByteArray())));
+    }
+
+    @PostMapping(value = "/")
+    @ApiOperation(value = "Upload students as XLSX file")
+    public ResponseEntity uploadStudents(
+            @ApiParam(value = "XLSX file")
+            @RequestParam(value = "file", required = false) MultipartFile file
+    ) throws IOException {
+        XSSFWorkbook wb = new XSSFWorkbook(file.getInputStream());
+        XSSFSheet sheet = wb.getSheetAt(0);
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+            Row row = sheet.getRow(i);
+            StudentInput studentInput = new StudentInput();
+            studentInput.setFirstName(row.getCell(1).getStringCellValue());
+            studentInput.setLastName(row.getCell(2).getStringCellValue());
+            studentInput.setGender(Gender.valueOf(row.getCell(3).getStringCellValue()));
+            studentInput.setDob(row.getCell(4).getDateCellValue());
+            Cell idCell = row.getCell(0);
+            if(idCell == null || idCell.getCellType() == CellType.BLANK) {
+                studentService.createStudent(studentInput);
+            }
+            else {
+                Double studentIdDouble = row.getCell(0).getNumericCellValue();
+                Integer studentId = studentIdDouble.intValue();
+                studentService.fullyUpdateStudent(studentId, studentInput);
+            }
+        }
+        return ResponseEntity.ok().body("ok");
     }
 }
