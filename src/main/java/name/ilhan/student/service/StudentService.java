@@ -17,6 +17,7 @@ public class StudentService {
         Student student = new Student();
         student.setFirstName(studentInput.getFirstName());
         student.setLastName(studentInput.getLastName());
+        student.setDob(studentInput.getDob());
         return studentRepository.save(student);
     }
 
@@ -33,6 +34,7 @@ public class StudentService {
         student.setId(id);
         student.setFirstName(studentInput.getFirstName());
         student.setLastName(studentInput.getLastName());
+        student.setDob(studentInput.getDob());
         return studentRepository.save(student);
     }
 }
