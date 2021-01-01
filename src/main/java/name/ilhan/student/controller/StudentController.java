@@ -36,4 +36,14 @@ public class StudentController {
     public void deleteStudent(@PathVariable Integer id) {
         studentService.deleteStudent(id);
     }
+
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Fully update a student")
+    public ResponseEntity<Student> putStudent(
+            @PathVariable Integer id,
+            StudentInput studentInput
+    ) {
+        Student student = studentService.fullyUpdateStudent(id, studentInput);
+        return ResponseEntity.ok(student);
+    }
 }

@@ -27,4 +27,12 @@ public class StudentService {
     public void deleteStudent(Integer id) {
         studentRepository.deleteById(id);
     }
+
+    public Student fullyUpdateStudent(Integer id, StudentInput studentInput) {
+        Student student = new Student();
+        student.setId(id);
+        student.setFirstName(studentInput.getFirstName());
+        student.setLastName(studentInput.getLastName());
+        return studentRepository.save(student);
+    }
 }
