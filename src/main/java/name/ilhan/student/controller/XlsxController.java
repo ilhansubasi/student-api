@@ -25,7 +25,7 @@ public class XlsxController {
     @Autowired
     private StudentService studentService;
 
-    private final String[] titles = {"Student ID", "First Name", "Last Name", "Date of Birth"};
+    private final String[] titles = {"Student ID", "First Name", "Last Name", "Gender", "Date of Birth"};
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ApiOperation(value = "Download all students as XLSX file")
@@ -46,9 +46,10 @@ public class XlsxController {
             row.createCell(0).setCellValue(student.getId());
             row.createCell(1).setCellValue(student.getFirstName());
             row.createCell(2).setCellValue(student.getLastName());
+            row.createCell(3).setCellValue(student.getGender().toString());
             CellStyle cellStyle = wb.createCellStyle();
             cellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd"));
-            Cell cell = row.createCell(3);
+            Cell cell = row.createCell(4);
             cell.setCellValue(student.getDob());
             cell.setCellStyle(cellStyle);
         }
