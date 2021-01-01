@@ -23,4 +23,8 @@ public class StudentService {
     public Page<Student> getStudents(Pageable pageable) {
         return studentRepository.findAll(pageable);
     }
+
+    public void deleteStudent(Integer id) {
+        studentRepository.deleteById(id);
+    }
 }

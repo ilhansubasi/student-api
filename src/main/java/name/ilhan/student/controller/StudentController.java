@@ -9,10 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/student")
@@ -32,5 +29,11 @@ public class StudentController {
     public ResponseEntity<Student> postStudent(StudentInput studentInput) {
         Student student = studentService.createStudent(studentInput);
         return ResponseEntity.ok(student);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ApiOperation(value = "Delete a contact")
+    public void deleteStudent(@PathVariable Integer id) {
+        studentService.deleteStudent(id);
     }
 }
