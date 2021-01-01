@@ -12,7 +12,7 @@
 	<artifactId>student</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>student</name>
-	<description>Technical assignment A1 Bulgaria</description>
+	<description>Technical assignment for A1 Bulgaria</description>
 
 	<properties>
 		<java.version>11</java.version>
