@@ -18,6 +18,7 @@ public class StudentService {
         student.setFirstName(studentInput.getFirstName());
         student.setLastName(studentInput.getLastName());
         student.setDob(studentInput.getDob());
+        student.setGender(studentInput.getGender());
         return studentRepository.save(student);
     }
 
@@ -35,6 +36,7 @@ public class StudentService {
         student.setFirstName(studentInput.getFirstName());
         student.setLastName(studentInput.getLastName());
         student.setDob(studentInput.getDob());
+        student.setGender(studentInput.getGender());
         return studentRepository.save(student);
     }
 }
