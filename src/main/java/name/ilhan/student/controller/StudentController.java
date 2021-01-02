@@ -25,7 +25,7 @@ public class StudentController {
         return ResponseEntity.ok().body(students);
     }
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a student")
     public ResponseEntity<Student> postStudent(
             @RequestBody
@@ -41,11 +41,11 @@ public class StudentController {
         studentService.deleteStudent(id);
     }
 
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Fully update a student")
     public ResponseEntity<Student> putStudent(
             @PathVariable Integer id,
-            StudentInput studentInput
+            @RequestBody StudentInput studentInput
     ) {
         Student student = studentService.fullyUpdateStudent(id, studentInput);
         return ResponseEntity.ok(student);
