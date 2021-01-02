@@ -27,7 +27,10 @@ public class StudentController {
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a student")
-    public ResponseEntity<Student> postStudent(StudentInput studentInput) {
+    public ResponseEntity<Student> postStudent(
+            @RequestBody
+            StudentInput studentInput
+    ) {
         Student student = studentService.createStudent(studentInput);
         return ResponseEntity.ok(student);
     }
