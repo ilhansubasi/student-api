@@ -5,7 +5,9 @@ import name.ilhan.student.model.Student;
 import name.ilhan.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +26,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Page<Student> getStudents(Pageable pageable) {
+    public Page<Student> getStudents(Integer pageNo, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
         return studentRepository.findAll(pageable);
     }
 

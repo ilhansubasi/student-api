@@ -1,17 +1,18 @@
 package name.ilhan.student.controller;
 
 import io.swagger.annotations.ApiOperation;
+import name.ilhan.student.dto.Pagination;
 import name.ilhan.student.dto.StudentInput;
 import name.ilhan.student.model.Student;
 import name.ilhan.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
@@ -19,8 +20,8 @@ public class StudentController {
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get students")
-    public ResponseEntity<Page<Student>> getStudents(Pageable pageable) {
-        Page<Student> students = studentService.getStudents(pageable);
+    public ResponseEntity<Page<Student>> getStudents(Pagination pagination) {
+        Page<Student> students = studentService.getStudents(pagination.getPageNo(), pagination.getPageSize());
         return ResponseEntity.ok().body(students);
     }
 
