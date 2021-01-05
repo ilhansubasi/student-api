@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/xlsx")
 public class XlsxController {
     @Autowired
@@ -51,7 +52,8 @@ public class XlsxController {
             row.createCell(2).setCellValue(student.getLastName());
             row.createCell(3).setCellValue(student.getGender().toString());
             CellStyle cellStyle = wb.createCellStyle();
-            cellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd"));
+            cellStyle.setDataFormat((short)14);
+            //cellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd"));
             Cell cell = row.createCell(4);
             cell.setCellValue(student.getDob());
             cell.setCellStyle(cellStyle);
