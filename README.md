@@ -16,6 +16,10 @@
 
 If you want to upload a .xlsx file you can use this one https://ilhan.name/a1/students.xlsx
 
+### Bugs
+
+Some of the bugs are noted [here](https://github.com/ilhanyumer/student-api/issues)
+
 ## Author
 
 Ilhan Yumer\
